@@ -32,7 +32,6 @@ export default function Home() {
                 alt={pokemon.name}
                 width={200}
                 height={200}
-                priority
               />
                 {/* <img
                   src={`https://jherr-pokemon.s3.us-west-1.amazonaws.com/${pokemon.image}`}
