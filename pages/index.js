@@ -3,8 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Image from 'next/image'
+import { co2 } from '@tgwf/co2'
 
 export default function Home() {
+
+  const swd = new co2({ model: 'swd' })
+  
+  const emissions = swd.perByte(1600000, true)
+  console.log(emissions)
+  
   const [pokemon, setPokemon] = React.useState([])
 
   React.useEffect(() => {
@@ -32,6 +39,7 @@ export default function Home() {
                 alt={pokemon.name}
                 width={200}
                 height={200}
+                priority
               />
                 {/* <img
                   src={`https://jherr-pokemon.s3.us-west-1.amazonaws.com/${pokemon.image}`}
