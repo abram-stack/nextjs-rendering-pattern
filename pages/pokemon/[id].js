@@ -1,10 +1,11 @@
 import { useRouter } from "next/router"
 import React from 'react'
 import styles from '../../styles/Details.module.css'
+import stylesHome from '../../styles/Home.module.css'
 import Head  from 'next/head';
 import Link from "next/link";
-
-
+import Image from "next/image";
+import Header from "../../components/Header";
 export default function Details() {
   //get id from parameter
   const { query: { id } } = useRouter();
@@ -31,11 +32,52 @@ export default function Details() {
       <Head>
         <title>{pokemon.name}</title>
       </Head>
-      <div className={styles.layout}>
-        <Link href='/'>
-          Back to home
+
+      <Header />
+      
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.imgContainer}>
+              <Image
+                className={styles.picture}
+                src={`https://jherr-pokemon.s3.us-west-1.amazonaws.com/${pokemon.image}`}
+                alt={pokemon.name && pokemon.name}
+                width={200}
+                height={200}
+              />
+          </div>
+          <span className={styles.line}></span>
+          <div className={styles.cardContent}>
+              <div className={styles.typeWrapper}>
+                <p className={styles.type}>{pokemon.type}</p>
+              </div>
+              <div className={styles.nameWrapper}>
+                <h1 className={styles.name}>{pokemon.name}</h1>
+              </div>
+              <div className={styles.statsWrapper}>
+                {/* <h2 className={styles.statsTitle}>stats</h2> */}
+                <table className={styles.statsContent}>
+                  <tbody>
+                  {pokemon.stats && pokemon.stats.map(({ name, value }) => (
+                    <tr key={name}>
+                      <td className={styles.attribute}>{name}</td>
+                      <td className={styles.value}>{value}</td>
+                    </tr>
+                  ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+        <Link href='/' className={styles.back}>
+          <button className={stylesHome.offset}>Back</button>
         </Link>
-        <div>
+      </div>
+    </div>
+  )
+}
+{/*   
+ <div>
           <img
             className={styles.picture}
             src={`https://jherr-pokemon.s3.us-west-1.amazonaws.com/${pokemon.image}`}
@@ -64,8 +106,6 @@ export default function Details() {
         </div>
       </div>
     </div>
-  )
-  
           // <table>
           //<thead className={styles.header}>
           //     <tr>
@@ -83,4 +123,4 @@ export default function Details() {
           //   </tbody>
           // </table>
         
-}
+</div>} */}
